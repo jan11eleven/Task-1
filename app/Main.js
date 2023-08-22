@@ -11,7 +11,9 @@ function Main() {
   };
 
   const handleSubmit = () => {
+    if (customerName === '') return;
     setCustomerList([...customerList, customerName]);
+    setCustomerName('');
   };
 
   return (
@@ -19,6 +21,7 @@ function Main() {
       <div className="flex justify-center mt-10">
         <input
           className="bg-slate-200 p-2 mr-10"
+          value={customerName}
           type="text"
           onChange={handleInputCustomerName}
         />
@@ -29,11 +32,13 @@ function Main() {
           Add Customer
         </button>
       </div>
-      <ul>
-        {customerList.map((customer) => (
-          <Customer name={customer} />
-        ))}
-      </ul>
+      {customerList.length > 0 && (
+        <ul>
+          {customerList.map((customer, index) => (
+            <Customer key={index} name={customer} />
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
